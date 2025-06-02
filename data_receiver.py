@@ -20,14 +20,16 @@ class DatePrefixTimedRotatingFileHandler(TimedRotatingFileHandler):
         return os.path.join(base_dir, f"{timestamp}_{filename}")
 
 
-LOG_FILE = "methane_data_log.csv"
+log_dir = "methane_data_arduino"
 
+log_file = os.path.join(log_dir, "methane_data_log.csv")
+os.makedirs(log_dir, exist_ok=True)
 logger = logging.getLogger("MethaneLogger")
 logger.setLevel(logging.INFO)
 
 # Write header to initial file if it doesn't exist
-if not os.path.exists(LOG_FILE):
-    with open(LOG_FILE, "w") as f:
+if not os.path.exists(log_file):
+    with open(log_file, "w") as f:
         f.write(
             "timestamp,timestamp,Uid,Uid_data,G_pin,G_pin_data,SDA_pin,SDA_pin_data,"
             "SCL_pin,SCL_pin_data,CO2_ppm,temperature_c,RelativeHumid,Pressure_hpa,rtc_time\n"
@@ -35,7 +37,7 @@ if not os.path.exists(LOG_FILE):
 
 # Custom rotating handler with date at beginning
 handler = DatePrefixTimedRotatingFileHandler(
-    LOG_FILE, when="midnight", interval=1
+    log_file, when="midnight", interval=1
 )
 
 formatter = logging.Formatter("%(message)s")
