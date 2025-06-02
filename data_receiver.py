@@ -32,7 +32,7 @@ if not os.path.exists(log_file):
     with open(log_file, "w") as f:
         f.write(
             "timestamp,timestamp,Uid,Uid_data,G_pin,G_pin_data,SDA_pin,SDA_pin_data,"
-            "SCL_pin,SCL_pin_data,CO2_ppm,temperature_c,RelativeHumid,Pressure_hpa,rtc_time\n"
+            "SCL_pin,SCL_pin_data,CO2_ppm,temperature_c,RelativeHumid,Pressure_kpa,rtc_time\n"
         )
 
 # Custom rotating handler with date at beginning
